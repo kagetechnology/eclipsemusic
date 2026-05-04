@@ -1,0 +1,242 @@
+[
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_browse_chip.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_browse_chip.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_card_download_bg.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/card_download_bg.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_mic.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_mic.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_fragment_library.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/fragment_library.xml"
+    },
+    {
+        "merged": "com.eclipseapp.pulse.app-debug-33:/layout_fragment_search.xml.flat",
+        "source": "com.eclipseapp.pulse.app-main-35:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_shuffle.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_shuffle.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/font_inter_bold.ttf.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/font/inter_bold.ttf"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_chevron_down.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_chevron_down.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_skip_next.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_skip_next.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_queue_music.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_queue_music.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_launcher.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_glow_circle.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_glow_circle.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_heart_icon_container.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_heart_icon_container.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_close.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_close.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_moon.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_moon.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_section_accent.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_section_accent.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_repeat.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_repeat.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_open_in_new.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_open_in_new.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_liked_card.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_liked_card.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_more_vert.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_more_vert.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_chevron_right.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_chevron_right.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/color_bottom_nav_colors.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/color/bottom_nav_colors.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_folder.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_folder.xml"
+    },
+    {
+        "merged": "com.eclipseapp.pulse.app-debug-33:/drawable_bg_browse_chip_warm.xml.flat",
+        "source": "com.eclipseapp.pulse.app-main-35:/drawable/bg_browse_chip_warm.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_repeat_one.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_repeat_one.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_mini_play_circle.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/mini_play_circle.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_home.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_list_item_hover.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_list_item_hover.xml"
+    },
+    {
+        "merged": "com.eclipseapp.pulse.app-debug-33:/drawable_bg_browse_chip_blue.xml.flat",
+        "source": "com.eclipseapp.pulse.app-main-35:/drawable/bg_browse_chip_blue.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_fragment_search.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_download.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_download.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_chip_inactive.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_chip_inactive.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_play.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_grid_item.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_grid_item.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_mic_btn.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_mic_btn.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_search_bar_bg.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/search_bar_bg.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/menu_bottom_nav.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/menu/bottom_nav.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_item_song.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/item_song.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_pause.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_pause.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_play_button.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_play_button.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_favorite.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_favorite.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_mini_player.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/mini_player.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_item_song_card.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/item_song_card.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_widget_player.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/widget_player.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_gradient_header.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_gradient_header.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/font_inter_regular.ttf.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/font/inter_regular.ttf"
+    },
+    {
+        "merged": "com.eclipseapp.pulse.app-debug-33:/drawable_bg_browse_chip_purple.xml.flat",
+        "source": "com.eclipseapp.pulse.app-main-35:/drawable/bg_browse_chip_purple.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_chip_active.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_chip_active.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_add.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_bg_search_bar.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/bg_search_bar.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_fragment_home.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_search.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_search.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_music_note.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_music_note.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_skip_previous.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_skip_previous.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_mini_player_bg_gradient.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/mini_player_bg_gradient.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_ic_history.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/ic_history.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_card_history_bg.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/card_history_bg.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/xml_widget_info.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/xml/widget_info.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/layout_activity_main.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-debug-33:/drawable_card_liked_bg.xml.flat",
+        "source": "/home/sage/.gradle/daemon/8.14/com.eclipseapp.pulse.app-main-35:/drawable/card_liked_bg.xml"
+    }
+]

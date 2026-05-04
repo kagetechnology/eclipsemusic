@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.eclipseapp.pulse.app-mergeReleaseResources-31:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "/home/sage/.gradle/caches/8.14/transforms/8f10729449ae2555060f00096dea034d/transformed/material-1.12.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}

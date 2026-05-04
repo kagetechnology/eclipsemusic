@@ -1,0 +1,218 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.eclipseapp.pulse.debug"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+9        android:targetSdkVersion="36" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:2:5-67
+11-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:2:22-64
+12    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+12-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:3:5-71
+12-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:3:22-68
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:4:5-81
+13-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:4:22-78
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+14-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:5:5-77
+14-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:5:22-74
+15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+15-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:6:5-92
+15-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:6:22-89
+16    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+16-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:7:5-77
+16-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:7:22-74
+17
+18    <permission
+18-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+19        android:name="com.eclipseapp.pulse.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="com.eclipseapp.pulse.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:9:5-62:19
+25        android:allowBackup="true"
+25-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:10:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.13.0] /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/AndroidManifest.xml:28:18-86
+27        android:debuggable="true"
+28        android:extractNativeLibs="false"
+29        android:icon="@drawable/ic_launcher"
+29-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:11:9-45
+30        android:label="@string/app_name"
+30-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:12:9-41
+31        android:roundIcon="@drawable/ic_launcher"
+31-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:13:9-50
+32        android:supportsRtl="true"
+32-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:14:9-35
+33        android:theme="@style/Theme.Eclipse" >
+33-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:15:9-45
+34        <activity
+34-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:16:9-18:40
+35            android:name="com.eclipseapp.pulse.ListActivity"
+35-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:17:13-41
+36            android:exported="false" />
+36-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:18:13-37
+37        <activity
+37-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:19:9-21:40
+38            android:name="com.eclipseapp.pulse.DiscordLoginActivity"
+38-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:20:13-49
+39            android:exported="false" />
+39-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:21:13-37
+40        <activity
+40-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:22:9-24:40
+41            android:name="com.eclipseapp.pulse.NativePlayerActivity"
+41-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:23:13-49
+42            android:exported="false" />
+42-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:24:13-37
+43        <activity
+43-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:25:9-28:40
+44            android:name="com.eclipseapp.pulse.YouTubeSourceActivity"
+44-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:26:13-50
+45            android:configChanges="keyboardHidden|orientation|screenSize"
+45-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:27:13-74
+46            android:exported="false" />
+46-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:28:13-37
+47        <activity
+47-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:29:9-36:20
+48            android:name="com.eclipseapp.pulse.MainActivity"
+48-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:30:13-41
+49            android:exported="true" >
+49-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:31:13-36
+50            <intent-filter>
+50-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:32:13-35:29
+51                <action android:name="android.intent.action.MAIN" />
+51-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:33:17-69
+51-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:33:25-66
+52
+53                <category android:name="android.intent.category.LAUNCHER" />
+53-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:34:17-77
+53-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:34:27-74
+54            </intent-filter>
+55        </activity>
+56
+57        <!-- Playback Service (also serves as MediaBrowserService for Android Auto) -->
+58        <service
+58-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:39:9-46:19
+59            android:name="com.eclipseapp.pulse.PlaybackService"
+59-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:40:13-44
+60            android:exported="true"
+60-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:41:13-36
+61            android:foregroundServiceType="mediaPlayback" >
+61-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:42:13-58
+62            <intent-filter>
+62-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:43:13-45:29
+63                <action android:name="android.media.browse.MediaBrowserService" />
+63-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:44:17-83
+63-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:44:25-80
+64            </intent-filter>
+65        </service>
+66
+67        <!-- Home Screen Widget -->
+68        <receiver
+68-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:49:9-61:20
+69            android:name="com.eclipseapp.pulse.MusicWidget"
+69-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:50:13-40
+70            android:exported="true" >
+70-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:51:13-36
+71            <intent-filter>
+71-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:52:13-57:29
+72                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+72-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:53:17-84
+72-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:53:25-81
+73                <action android:name="com.eclipseapp.pulse.WIDGET_PREV" />
+73-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:54:17-75
+73-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:54:25-72
+74                <action android:name="com.eclipseapp.pulse.WIDGET_PLAY_PAUSE" />
+74-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:55:17-81
+74-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:55:25-78
+75                <action android:name="com.eclipseapp.pulse.WIDGET_NEXT" />
+75-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:56:17-75
+75-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:56:25-72
+76            </intent-filter>
+77
+78            <meta-data
+78-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:58:13-60:55
+79                android:name="android.appwidget.provider"
+79-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:59:17-58
+80                android:resource="@xml/widget_info" />
+80-->/home/sage/EclipseApp Android/app/src/main/AndroidManifest.xml:60:17-52
+81        </receiver>
+82
+83        <provider
+83-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+84            android:name="androidx.startup.InitializationProvider"
+84-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+85            android:authorities="com.eclipseapp.pulse.debug.androidx-startup"
+85-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+86            android:exported="false" >
+86-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+87            <meta-data
+87-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+88                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+88-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+89                android:value="androidx.startup" />
+89-->[androidx.emoji2:emoji2:1.2.0] /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+90            <meta-data
+90-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/sage/.gradle/caches/8.14/transforms/2cec758ccd540c62c75393a80ecbfca9/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+91                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+91-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/sage/.gradle/caches/8.14/transforms/2cec758ccd540c62c75393a80ecbfca9/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+92                android:value="androidx.startup" />
+92-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/sage/.gradle/caches/8.14/transforms/2cec758ccd540c62c75393a80ecbfca9/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+93            <meta-data
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+94                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+95                android:value="androidx.startup" />
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+96        </provider>
+97
+98        <receiver
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+99            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+100            android:directBootAware="false"
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+101            android:enabled="true"
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+102            android:exported="true"
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+103            android:permission="android.permission.DUMP" >
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+104            <intent-filter>
+104-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+105                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+106            </intent-filter>
+107            <intent-filter>
+107-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+108                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+108-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+108-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+109            </intent-filter>
+110            <intent-filter>
+110-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+111                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+112            </intent-filter>
+113            <intent-filter>
+113-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+114                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+114-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+114-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+115            </intent-filter>
+116        </receiver>
+117    </application>
+118
+119</manifest>

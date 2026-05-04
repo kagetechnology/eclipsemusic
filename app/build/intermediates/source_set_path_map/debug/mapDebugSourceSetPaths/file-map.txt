@@ -1,0 +1,36 @@
+com.eclipseapp.pulse.app-fragment-1.3.6-0 /home/sage/.gradle/caches/8.14/transforms/000290476cc2cdd62bf9cd0d2e61f2f4/transformed/fragment-1.3.6/res
+com.eclipseapp.pulse.app-constraintlayout-2.0.1-1 /home/sage/.gradle/caches/8.14/transforms/04ea7e007b1f8a8bcb8b6c5f9592a521/transformed/constraintlayout-2.0.1/res
+com.eclipseapp.pulse.app-lifecycle-livedata-2.6.2-2 /home/sage/.gradle/caches/8.14/transforms/056f7f44669017b7f6d42251cb128a6e/transformed/lifecycle-livedata-2.6.2/res
+com.eclipseapp.pulse.app-appcompat-1.6.1-3 /home/sage/.gradle/caches/8.14/transforms/262457e5b897d87d53b8ff74a1c7eeaf/transformed/appcompat-1.6.1/res
+com.eclipseapp.pulse.app-lifecycle-process-2.6.2-4 /home/sage/.gradle/caches/8.14/transforms/2cec758ccd540c62c75393a80ecbfca9/transformed/lifecycle-process-2.6.2/res
+com.eclipseapp.pulse.app-lifecycle-runtime-2.6.2-5 /home/sage/.gradle/caches/8.14/transforms/442b2b3c1e89603f56951c200a9355fc/transformed/lifecycle-runtime-2.6.2/res
+com.eclipseapp.pulse.app-annotation-experimental-1.4.0-6 /home/sage/.gradle/caches/8.14/transforms/5646da5087bc15d028719d94f13fd854/transformed/annotation-experimental-1.4.0/res
+com.eclipseapp.pulse.app-core-ktx-1.13.0-7 /home/sage/.gradle/caches/8.14/transforms/56dc889eb96478cbe762204485afc414/transformed/core-ktx-1.13.0/res
+com.eclipseapp.pulse.app-appcompat-resources-1.6.1-8 /home/sage/.gradle/caches/8.14/transforms/57d852f96795ecf860094e633af94502/transformed/appcompat-resources-1.6.1/res
+com.eclipseapp.pulse.app-savedstate-1.2.1-9 /home/sage/.gradle/caches/8.14/transforms/6534a531620b9b265324aafe30b4a8ab/transformed/savedstate-1.2.1/res
+com.eclipseapp.pulse.app-drawerlayout-1.1.1-10 /home/sage/.gradle/caches/8.14/transforms/6df503f9256b24f1eacaef7a5673212f/transformed/drawerlayout-1.1.1/res
+com.eclipseapp.pulse.app-coordinatorlayout-1.1.0-11 /home/sage/.gradle/caches/8.14/transforms/7325b57efda07cd85aadee52305eab4e/transformed/coordinatorlayout-1.1.0/res
+com.eclipseapp.pulse.app-transition-1.5.0-12 /home/sage/.gradle/caches/8.14/transforms/811f5909cbe82333fa4292e9e82a73a3/transformed/transition-1.5.0/res
+com.eclipseapp.pulse.app-core-1.13.0-13 /home/sage/.gradle/caches/8.14/transforms/818b20a5af9b2dcce6d5ba1345b7ccc3/transformed/core-1.13.0/res
+com.eclipseapp.pulse.app-viewpager2-1.0.0-14 /home/sage/.gradle/caches/8.14/transforms/8474ac82a41e9dec2f0572c5e1a95358/transformed/viewpager2-1.0.0/res
+com.eclipseapp.pulse.app-core-runtime-2.2.0-15 /home/sage/.gradle/caches/8.14/transforms/84f191663a63e26b8f8bfd3c8066350c/transformed/core-runtime-2.2.0/res
+com.eclipseapp.pulse.app-material-1.12.0-16 /home/sage/.gradle/caches/8.14/transforms/8f10729449ae2555060f00096dea034d/transformed/material-1.12.0/res
+com.eclipseapp.pulse.app-media-1.7.0-17 /home/sage/.gradle/caches/8.14/transforms/a5c26972121e66f0cb745d2a3bb84b32/transformed/media-1.7.0/res
+com.eclipseapp.pulse.app-activity-1.8.0-18 /home/sage/.gradle/caches/8.14/transforms/a7ae96319e3ea7192140d81cdb36473b/transformed/activity-1.8.0/res
+com.eclipseapp.pulse.app-glide-4.16.0-19 /home/sage/.gradle/caches/8.14/transforms/a7f47efae6d4ccf2e68d8e20abbc697e/transformed/glide-4.16.0/res
+com.eclipseapp.pulse.app-recyclerview-1.1.0-20 /home/sage/.gradle/caches/8.14/transforms/ae34d3df529d86b04fa3bd320ccf687e/transformed/recyclerview-1.1.0/res
+com.eclipseapp.pulse.app-startup-runtime-1.1.1-21 /home/sage/.gradle/caches/8.14/transforms/c6a66af42d8469abf5c7b57d6b13036a/transformed/startup-runtime-1.1.1/res
+com.eclipseapp.pulse.app-emoji2-views-helper-1.2.0-22 /home/sage/.gradle/caches/8.14/transforms/c82d81ae583c132beed7f0f4dbc74c1b/transformed/emoji2-views-helper-1.2.0/res
+com.eclipseapp.pulse.app-emoji2-1.2.0-23 /home/sage/.gradle/caches/8.14/transforms/d22939972f984887af2e94f45d035bf1/transformed/emoji2-1.2.0/res
+com.eclipseapp.pulse.app-profileinstaller-1.3.0-24 /home/sage/.gradle/caches/8.14/transforms/d697b3bd714065cc3e696278c2d980ff/transformed/profileinstaller-1.3.0/res
+com.eclipseapp.pulse.app-lifecycle-viewmodel-2.6.2-25 /home/sage/.gradle/caches/8.14/transforms/dfa5edeefcb105fcdeff7fd16e98fe7e/transformed/lifecycle-viewmodel-2.6.2/res
+com.eclipseapp.pulse.app-lifecycle-viewmodel-savedstate-2.6.2-26 /home/sage/.gradle/caches/8.14/transforms/e43eee107725dbc3a6965be441db52fa/transformed/lifecycle-viewmodel-savedstate-2.6.2/res
+com.eclipseapp.pulse.app-cardview-1.0.0-27 /home/sage/.gradle/caches/8.14/transforms/e871c5fce9aaac7947a5de2d91bbfd06/transformed/cardview-1.0.0/res
+com.eclipseapp.pulse.app-lifecycle-livedata-core-2.6.2-28 /home/sage/.gradle/caches/8.14/transforms/f890d2015e68ea1b9485094b447e1f75/transformed/lifecycle-livedata-core-2.6.2/res
+com.eclipseapp.pulse.app-pngs-29 /home/sage/EclipseApp Android/app/build/generated/res/pngs/debug
+com.eclipseapp.pulse.app-resValues-30 /home/sage/EclipseApp Android/app/build/generated/res/resValues/debug
+com.eclipseapp.pulse.app-packageDebugResources-31 /home/sage/EclipseApp Android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.eclipseapp.pulse.app-packageDebugResources-32 /home/sage/EclipseApp Android/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.eclipseapp.pulse.app-debug-33 /home/sage/EclipseApp Android/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.eclipseapp.pulse.app-debug-34 /home/sage/EclipseApp Android/app/src/debug/res
+com.eclipseapp.pulse.app-main-35 /home/sage/EclipseApp Android/app/src/main/res

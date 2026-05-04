@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <!-- ── Header: gradient + search bar inside ── -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_header">
+
+        <!-- Glow orb top-right -->
+        <View
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="-50dp"
+            android:layout_marginEnd="-50dp"
+            android:background="@drawable/bg_glow_circle"
+            android:alpha="0.10" />
+
+        <!-- Glow orb bottom-left -->
+        <View
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="-30dp"
+            android:layout_marginStart="-30dp"
+            android:background="@drawable/bg_glow_circle"
+            android:alpha="0.07" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="60dp"
+            android:paddingBottom="20dp">
+
+            <!-- Label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ECLIPSE MUSIC"
+                android:textColor="#66ADC7FF"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.25" />
+
+            <!-- Title row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Discover"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="30sp"
+                        android:fontFamily="sans-serif-bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Find your next favorite song"
+                        android:textColor="#88FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+
+                <!-- Decorative music note badge -->
+                <FrameLayout
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_mic_btn">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="♬"
+                        android:textSize="22sp"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Search bar (inside header, no negative margin) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_search_bar"
+                android:paddingStart="16dp"
+                android:paddingEnd="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/primary"
+                    android:contentDescription="Search"
+                    android:layout_marginEnd="12dp" />
+
+                <EditText
+                    android:id="@+id/search_input"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Songs, artists, albums..."
+                    android:textColorHint="#55FFFFFF"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/search_clear"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_close"
+                    android:contentDescription="Clear"
+                    android:visibility="gone"
+                    android:layout_marginEnd="8dp" />
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_mic_btn"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <ImageView
+                        android:id="@+id/search_mic"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_mic"
+                        android:tint="@color/primary"
+                        android:contentDescription="Recognize music" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- ── Loading ── -->
+    <ProgressBar
+        android:id="@+id/search_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:indeterminateTint="@color/primary"
+        android:visibility="gone" />
+
+    <!-- ── Browse / Empty State ── -->
+    <ScrollView
+        android:id="@+id/browse_section"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Empty state icon + text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="20dp">
+
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/bg_mic_btn"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="🎵"
+                        android:textSize="30sp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/search_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Play what you love"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="15sp"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search or tap a genre below"
+                    android:textColor="#44FFFFFF"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0DFFFFFF"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Browse header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="14dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/bg_section_accent"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Browse by genre"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- Chips: 2-column grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <!-- Row 1 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="58dp"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/chip_trending"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:text="🔥  Trending" android:textColor="#FFADC7FF" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_blue"
+                        android:clickable="true" android:focusable="true" />
+                    <TextView android:id="@+id/chip_pop"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginStart="10dp" android:text="🎤  Pop"
+                        android:textColor="#FFFFB695" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_warm"
+                        android:clickable="true" android:focusable="true" />
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="58dp"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/chip_hiphop"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:text="🎧  Hip-Hop" android:textColor="#FFCABEFF" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_purple"
+                        android:clickable="true" android:focusable="true" />
+                    <TextView android:id="@+id/chip_electronic"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginStart="10dp" android:text="⚡  Electronic"
+                        android:textColor="#FFADC7FF" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_blue"
+                        android:clickable="true" android:focusable="true" />
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="58dp"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/chip_rnb"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:text="🎵  R&amp;B" android:textColor="#FFFFB695" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_warm"
+                        android:clickable="true" android:focusable="true" />
+                    <TextView android:id="@+id/chip_lofi"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginStart="10dp" android:text="☕  Lo-Fi"
+                        android:textColor="#FFCABEFF" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_purple"
+                        android:clickable="true" android:focusable="true" />
+                </LinearLayout>
+
+                <!-- Row 4 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="58dp"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/chip_rock"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:text="🎸  Rock" android:textColor="#FFADC7FF" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_blue"
+                        android:clickable="true" android:focusable="true" />
+                    <TextView android:id="@+id/chip_jazz"
+                        android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                        android:layout_marginStart="10dp" android:text="🎷  Jazz"
+                        android:textColor="#FFFFB695" android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" android:gravity="center"
+                        android:background="@drawable/bg_browse_chip_warm"
+                        android:clickable="true" android:focusable="true" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ── Search Results ── -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+</LinearLayout>
