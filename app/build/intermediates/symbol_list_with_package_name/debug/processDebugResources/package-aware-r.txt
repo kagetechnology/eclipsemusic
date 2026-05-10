@@ -43,6 +43,7 @@ anim m3_side_sheet_exit_to_right
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
+animator button_press
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -2920,10 +2921,15 @@ drawable avd_hide_password
 drawable avd_show_password
 drawable bg_browse_chip
 drawable bg_browse_chip_blue
+drawable bg_browse_chip_green
 drawable bg_browse_chip_purple
 drawable bg_browse_chip_warm
+drawable bg_button_outline
 drawable bg_chip_active
 drawable bg_chip_inactive
+drawable bg_circle_solid_purple
+drawable bg_circle_translucent
+drawable bg_glass
 drawable bg_glow_circle
 drawable bg_gradient_header
 drawable bg_grid_item
@@ -3071,7 +3077,9 @@ drawable search_bar_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font inter
 font inter_bold
+font inter_medium
 font inter_regular
 id ALT
 id BOTTOM_END
@@ -3164,6 +3172,8 @@ id bottom
 id bottom_nav
 id bounce
 id browse_section
+id btn_back_recognize
+id btn_cancel_recognize
 id btn_create_playlist
 id buttonPanel
 id cancel_action
@@ -3188,12 +3198,10 @@ id chip_artists
 id chip_downloaded
 id chip_electronic
 id chip_hiphop
-id chip_jazz
 id chip_lofi
 id chip_playlists
 id chip_pop
 id chip_rnb
-id chip_rock
 id chip_trending
 id chronometer
 id circle_center
@@ -3348,6 +3356,10 @@ id matrix
 id media_actions
 id media_controller_compat_view_tag
 id message
+id mic_container
+id mic_glow
+id mic_ring_inner
+id mic_ring_outer
 id middle
 id mini
 id mini_artist
@@ -3455,6 +3467,7 @@ id ratio
 id recent_list
 id recently_added_grid
 id recently_see_all
+id recognize_text
 id rectangles
 id report_drawn
 id reverseSawtooth
@@ -3487,6 +3500,8 @@ id search_loading
 id search_mag_icon
 id search_mic
 id search_plate
+id search_recommendations_container
+id search_recommendations_list
 id search_results
 id search_src_text
 id search_voice_btn
@@ -3575,6 +3590,7 @@ id title_template
 id toggle
 id top
 id topPanel
+id top_bar
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -3742,6 +3758,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_recognize
 layout fragment_home
 layout fragment_library
 layout fragment_search
@@ -4314,6 +4331,7 @@ style Platform_V21_AppCompat_Light
 style Platform_V25_AppCompat
 style Platform_V25_AppCompat_Light
 style Platform_Widget_AppCompat_Spinner
+style RoundedSquare
 style RtlOverlay_DialogWindowTitle_AppCompat
 style RtlOverlay_Widget_AppCompat_ActionBar_TitleItem
 style RtlOverlay_Widget_AppCompat_DialogTitle_Icon

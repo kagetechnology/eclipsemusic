@@ -19,6 +19,10 @@
     <color name="white_10">#1AFFFFFF</color>
     <color name="white_5">#0DFFFFFF</color>
     <string name="app_name">Eclipse</string>
+    <style name="RoundedSquare" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
     <style name="Theme.Eclipse" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>

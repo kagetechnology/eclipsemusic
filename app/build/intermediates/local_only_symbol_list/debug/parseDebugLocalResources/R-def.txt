@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+animator button_press
 color bg
 color bottom_nav_colors
 color on_surface
@@ -21,10 +22,15 @@ color white_10
 color white_5
 drawable bg_browse_chip
 drawable bg_browse_chip_blue
+drawable bg_browse_chip_green
 drawable bg_browse_chip_purple
 drawable bg_browse_chip_warm
+drawable bg_button_outline
 drawable bg_chip_active
 drawable bg_chip_inactive
+drawable bg_circle_solid_purple
+drawable bg_circle_translucent
+drawable bg_glass
 drawable bg_glow_circle
 drawable bg_gradient_header
 drawable bg_grid_item
@@ -65,10 +71,14 @@ drawable ic_skip_previous
 drawable mini_play_circle
 drawable mini_player_bg_gradient
 drawable search_bar_bg
+font inter
 font inter_bold
+font inter_medium
 font inter_regular
 id bottom_nav
 id browse_section
+id btn_back_recognize
+id btn_cancel_recognize
 id btn_create_playlist
 id card_artist
 id card_liked
@@ -81,12 +91,10 @@ id chip_artists
 id chip_downloaded
 id chip_electronic
 id chip_hiphop
-id chip_jazz
 id chip_lofi
 id chip_playlists
 id chip_pop
 id chip_rnb
-id chip_rock
 id chip_trending
 id fragment_container
 id greeting
@@ -97,6 +105,10 @@ id lib_avatar
 id lib_search_btn
 id liked_count
 id liked_play_btn
+id mic_container
+id mic_glow
+id mic_ring_inner
+id mic_ring_outer
 id mini_artist
 id mini_next
 id mini_play_pause
@@ -120,11 +132,14 @@ id playlist_list
 id recent_list
 id recently_added_grid
 id recently_see_all
+id recognize_text
 id search_clear
 id search_empty
 id search_input
 id search_loading
 id search_mic
+id search_recommendations_container
+id search_recommendations_list
 id search_results
 id section_charts
 id section_jump_back
@@ -138,6 +153,7 @@ id song_artist
 id song_more
 id song_thumb
 id song_title
+id top_bar
 id trending_list
 id widget_art
 id widget_artist
@@ -146,6 +162,7 @@ id widget_play_pause
 id widget_prev
 id widget_title
 layout activity_main
+layout dialog_recognize
 layout fragment_home
 layout fragment_library
 layout fragment_search
@@ -155,5 +172,6 @@ layout mini_player
 layout widget_player
 menu bottom_nav
 string app_name
+style RoundedSquare
 style Theme.Eclipse
 xml widget_info

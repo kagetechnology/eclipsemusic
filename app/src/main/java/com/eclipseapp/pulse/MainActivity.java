@@ -320,40 +320,53 @@ public class MainActivity extends Activity {
         View micParent = searchView.findViewById(R.id.search_mic);
         if (micParent != null) {
             // The FrameLayout wrapping the mic is clickable; wire mic ImageView
-            micParent.setOnClickListener(v -> startRecognize(input, loading, results, empty));
+            micParent.setOnClickListener(v -> startRecognize(input, loading, results, empty, browseSection));
+        }
+
+        // Recommendations based on history
+        RecyclerView recList = searchView.findViewById(R.id.search_recommendations_list);
+        if (recList != null) {
+            recList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            List<org.json.JSONObject> history = LocalStorageManager.getHistory(this);
+            String recQuery = "trending songs 2025";
+            if (history != null && !history.isEmpty()) {
+                String artist = history.get(0).optString("artist", "");
+                if (!artist.isEmpty()) {
+                    recQuery = artist + " best hits";
+                }
+            }
+            innertube.search(recQuery, (tracks, status) -> {
+                if (!tracks.isEmpty()) {
+                    recList.setAdapter(new CardAdapter(tracks.subList(0, Math.min(8, tracks.size()))));
+                }
+            });
         }
 
         // Genre browse chips
         int[] chipViewIds = {
             R.id.chip_trending, R.id.chip_pop,   R.id.chip_hiphop, R.id.chip_electronic,
-            R.id.chip_rnb,      R.id.chip_lofi,  R.id.chip_rock,   R.id.chip_jazz
+            R.id.chip_rnb,      R.id.chip_lofi
         };
         String[] chipQueries = {
             "trending hits 2025",    "best pop songs 2025",
             "hip hop hits 2025",     "electronic music 2025",
-            "rnb songs 2025",        "lofi hip hop chill",
-            "rock classics hits",    "jazz relax music"
+            "rnb songs 2025",        "lofi hip hop chill"
+        };
+        String[] chipTitles = {
+            "Trending", "Pop",
+            "Hip-Hop",  "Electronic",
+            "R&B",      "Lo-Fi"
         };
         for (int i = 0; i < chipViewIds.length; i++) {
             View chip = searchView.findViewById(chipViewIds[i]);
             if (chip == null) continue;
             final String query = chipQueries[i];
+            final String title = chipTitles[i];
             chip.setOnClickListener(v -> {
-                input.setText(query);
-                clearBtn.setVisibility(View.VISIBLE);
-                if (browseSection != null) browseSection.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
-                results.setVisibility(View.GONE);
-                innertube.search(query, (tracks, status) -> {
-                    loading.setVisibility(View.GONE);
-                    if (!tracks.isEmpty()) {
-                        results.setVisibility(View.VISIBLE);
-                        results.setAdapter(new SongAdapter(tracks));
-                    } else {
-                        empty.setText("No results found");
-                        if (browseSection != null) browseSection.setVisibility(View.VISIBLE);
-                    }
-                });
+                Intent intent = new Intent(this, ListActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("query", query);
+                startActivity(intent);
             });
         }
     }
@@ -361,30 +374,58 @@ public class MainActivity extends Activity {
     private static final int PERM_MIC = 1001;
     private Runnable pendingRecognize;
 
-    private void startRecognize(EditText input, ProgressBar loading, RecyclerView results, TextView empty) {
+    private void startRecognize(EditText input, ProgressBar loading, RecyclerView results, TextView empty, View browseSection) {
         if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO)
                 != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            pendingRecognize = () -> startRecognize(input, loading, results, empty);
+            pendingRecognize = () -> startRecognize(input, loading, results, empty, browseSection);
             requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, PERM_MIC);
             return;
         }
 
-        // Show listening dialog
-        AlertDialog listenDlg = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
-                .setMessage("🎵 Listening...")
-                .setCancelable(false)
-                .setNegativeButton("Cancel", null)
-                .create();
+        // Show custom full-screen listening dialog
+        android.app.Dialog listenDlg = new android.app.Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        listenDlg.setContentView(R.layout.dialog_recognize);
+        listenDlg.setCancelable(false);
+
+        TextView recognizeText = listenDlg.findViewById(R.id.recognize_text);
+        View micGlow = listenDlg.findViewById(R.id.mic_glow);
+        View ringInner = listenDlg.findViewById(R.id.mic_ring_inner);
+        View ringOuter = listenDlg.findViewById(R.id.mic_ring_outer);
+
+        listenDlg.findViewById(R.id.btn_cancel_recognize).setOnClickListener(v -> listenDlg.dismiss());
+        listenDlg.findViewById(R.id.btn_back_recognize).setOnClickListener(v -> listenDlg.dismiss());
+
+        // Pulse animation for rings
+        android.animation.ObjectAnimator scaleInnerX = android.animation.ObjectAnimator.ofFloat(ringInner, "scaleX", 1f, 1.2f, 1f);
+        android.animation.ObjectAnimator scaleInnerY = android.animation.ObjectAnimator.ofFloat(ringInner, "scaleY", 1f, 1.2f, 1f);
+        scaleInnerX.setRepeatCount(android.animation.ValueAnimator.INFINITE);
+        scaleInnerY.setRepeatCount(android.animation.ValueAnimator.INFINITE);
+        scaleInnerX.setDuration(1000);
+        scaleInnerY.setDuration(1000);
+
+        android.animation.ObjectAnimator scaleOuterX = android.animation.ObjectAnimator.ofFloat(ringOuter, "scaleX", 1f, 1.3f, 1f);
+        android.animation.ObjectAnimator scaleOuterY = android.animation.ObjectAnimator.ofFloat(ringOuter, "scaleY", 1f, 1.3f, 1f);
+        scaleOuterX.setRepeatCount(android.animation.ValueAnimator.INFINITE);
+        scaleOuterY.setRepeatCount(android.animation.ValueAnimator.INFINITE);
+        scaleOuterX.setDuration(1200);
+        scaleOuterY.setDuration(1200);
+
+        android.animation.AnimatorSet pulse = new android.animation.AnimatorSet();
+        pulse.playTogether(scaleInnerX, scaleInnerY, scaleOuterX, scaleOuterY);
+        pulse.start();
+
+        listenDlg.setOnDismissListener(d -> pulse.cancel());
         listenDlg.show();
 
         MusicRecognizer.recognize(
-                msg -> { if (listenDlg.isShowing()) listenDlg.setMessage(msg); },
+                msg -> { if (listenDlg.isShowing()) runOnUiThread(() -> recognizeText.setText(msg)); },
                 (title, artist, status) -> {
                     if (listenDlg.isShowing()) listenDlg.dismiss();
                     if (title != null && !title.isEmpty()) {
                         // Auto search the recognized song
                         String query = title + " " + artist;
                         input.setText(query);
+                        if (browseSection != null) browseSection.setVisibility(View.GONE);
                         loading.setVisibility(View.VISIBLE);
                         empty.setVisibility(View.GONE);
                         results.setVisibility(View.GONE);
@@ -447,17 +488,40 @@ public class MainActivity extends Activity {
         View chipArtists     = libraryView.findViewById(R.id.chip_artists);
         View chipAlbums      = libraryView.findViewById(R.id.chip_albums);
         View chipDownloaded  = libraryView.findViewById(R.id.chip_downloaded);
-        View[] chips = {chipPlaylists, chipArtists, chipAlbums, chipDownloaded};
-        for (View chip : chips) {
-            if (chip == null) continue;
-            chip.setOnClickListener(v -> {
-                for (View c : chips) {
-                    if (c == null) continue;
-                    c.setBackground(getDrawable(R.drawable.bg_chip_inactive));
-                    if (c instanceof TextView) ((TextView) c).setTextColor(0xFFB3B3B3);
+
+        if (chipPlaylists != null) {
+            chipPlaylists.setOnClickListener(v -> {
+                List<Track> plTracks = new ArrayList<>();
+                for (JSONObject p : LocalStorageManager.getPlaylists(this)) {
+                    JSONArray arr = p.optJSONArray("songs");
+                    if (arr != null) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            Track t = LocalStorageManager.jsonToTrack(arr.optJSONObject(i));
+                            if (t != null) plTracks.add(t);
+                        }
+                    }
                 }
-                v.setBackground(getDrawable(R.drawable.bg_chip_active));
-                if (v instanceof TextView) ((TextView) v).setTextColor(0xFF002E68);
+                showListScreen("Playlists", plTracks);
+            });
+        }
+        if (chipArtists != null) {
+            chipArtists.setOnClickListener(v -> {
+                List<Track> liked = LocalStorageManager.jsonArrayToTracks(LocalStorageManager.getLikedSongs(this));
+                liked.sort((a,b) -> (a.artist==null?"":a.artist).compareToIgnoreCase(b.artist==null?"":b.artist));
+                showListScreen("Artists", liked);
+            });
+        }
+        if (chipAlbums != null) {
+            chipAlbums.setOnClickListener(v -> {
+                List<Track> liked = LocalStorageManager.jsonArrayToTracks(LocalStorageManager.getLikedSongs(this));
+                liked.sort((a,b) -> (a.title==null?"":a.title).compareToIgnoreCase(b.title==null?"":b.title));
+                showListScreen("Albums", liked);
+            });
+        }
+        if (chipDownloaded != null) {
+            chipDownloaded.setOnClickListener(v -> {
+                List<Track> dl = LocalStorageManager.jsonArrayToTracks(LocalStorageManager.getDownloads(this));
+                showListScreen("Downloaded", dl);
             });
         }
         // Recently Added — search button

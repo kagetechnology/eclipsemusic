@@ -26,6 +26,7 @@ public final class NativePlayerActivity extends Activity {
     final Handler ui=new Handler(Looper.getMainLooper());
     final Runnable tick=new Runnable(){public void run(){renderProg();syncLyrics();ui.postDelayed(this,300);}};
     ImageView art,playIc,favIc;TextView titleV,artistV,elapV,durV,statV;
+    FrameLayout artWrap;
     SeekBar seek;ProgressBar load;
     LinearLayout queueCont,lyricsCont,queueList,lyricsLines;
     ScrollView lyricsScroll;
@@ -97,17 +98,19 @@ public final class NativePlayerActivity extends Activity {
             pm.getMenu().add(0,2,1,"Open YouTube");
             pm.getMenu().add(0,3,2,"Share");
             pm.getMenu().add(0,4,3,"\uD83C� Sounds Like...");
+            pm.getMenu().add(0,5,4,"Audio Controls (Tempo/Pitch)");
             pm.setOnMenuItemClickListener(i->{
                 if(i.getItemId()==1)addToPL();
                 else if(i.getItemId()==2)openYT();
                 else if(i.getItemId()==3)shareTrack();
-                else showSoundsLike();
+                else if(i.getItemId()==4)showSoundsLike();
+                else showAudioControls();
                 return true;});pm.show();});
 
 
 
         // Album Art — rounded square
-        FrameLayout artWrap=new FrameLayout(this);
+        artWrap=new FrameLayout(this);
         LinearLayout.LayoutParams awLP=lp(dp(280),dp(280));awLP.topMargin=dp(24);
         r.addView(artWrap,awLP);
         art=new ImageView(this);art.setScaleType(ImageView.ScaleType.CENTER_CROP);art.setBackgroundColor(SF2);
@@ -339,7 +342,33 @@ public final class NativePlayerActivity extends Activity {
 
     void loadThumb(){MainActivity.Track t=pb.currentTrack();if(t==null)t=reqTrack();
         if(t==null||t.thumbnailUrl==null||t.thumbnailUrl.isEmpty())return;String url=t.thumbnailUrl;
-        new Thread(()->{try{Bitmap b=BitmapFactory.decodeStream(new URL(url).openStream());if(b!=null)ui.post(()->art.setImageBitmap(b));}catch(Exception e){}}).start();}
+        new Thread(()->{try{Bitmap b=BitmapFactory.decodeStream(new URL(url).openStream());if(b!=null)ui.post(()->{
+            art.setImageBitmap(b);
+            applyNeonPalette(b);
+        });}catch(Exception e){}}).start();}
+    void applyNeonPalette(Bitmap b) {
+        androidx.palette.graphics.Palette.from(b).generate(p -> {
+            int neonColor = p.getVibrantColor(0);
+            if (neonColor == 0) neonColor = p.getDominantColor(0x33FFFFFF);
+            if (neonColor != 0) {
+                // Apply neon glow to the artWrap background
+                GradientDrawable gd = new GradientDrawable();
+                gd.setShape(GradientDrawable.RECTANGLE);
+                gd.setCornerRadius(dp(16));
+                int[] colors = { (neonColor & 0x00FFFFFF) | 0x88000000, 0x00000000 };
+                GradientDrawable glow = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                glow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
+                glow.setGradientRadius(dp(200));
+                artWrap.setBackground(glow);
+                // Also set an ambient shadow color if supported
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    artWrap.setOutlineAmbientShadowColor(neonColor);
+                    artWrap.setOutlineSpotShadowColor(neonColor);
+                    artWrap.setElevation(dp(30));
+                }
+            }
+        });
+    }
     void loadThumbInto(String url,ImageView iv){if(url==null||url.isEmpty()){iv.setImageResource(R.drawable.ic_music_note);return;}
         new Thread(()->{try{Bitmap b=BitmapFactory.decodeStream(new URL(url).openStream());if(b!=null)ui.post(()->iv.setImageBitmap(b));}catch(Exception e){}}).start();}
     void loadLyrics(){
@@ -628,5 +657,57 @@ public final class NativePlayerActivity extends Activity {
                 }
             }catch(Exception e){runOnUiThread(()->keyBadge.setText("♪"));}
         }).start();
+    }
+
+    // ── Feature 3: Audio Controls (Tempo/Pitch) ─────────────────────────────
+    void showAudioControls() {
+        LinearLayout dlg = vl(); dlg.setPadding(dp(24), dp(24), dp(24), dp(24));
+        dlg.setBackgroundColor(SF2);
+        
+        TextView title = tx("Audio Controls", 18, W, true);
+        dlg.addView(title, lp(-1, -2));
+
+        // Tempo
+        TextView tempoLabel = tx(String.format("Tempo: %.2fx", pb.getTempo()), 14, G1, false);
+        tempoLabel.setPadding(0, dp(16), 0, dp(8));
+        dlg.addView(tempoLabel, lp(-1, -2));
+        SeekBar tempoBar = new SeekBar(this);
+        tempoBar.setMax(200); tempoBar.setProgress((int)(pb.getTempo() * 100));
+        dlg.addView(tempoBar, lp(-1, -2));
+
+        // Pitch
+        TextView pitchLabel = tx(String.format("Pitch: %.2fx", pb.getPitch()), 14, G1, false);
+        pitchLabel.setPadding(0, dp(16), 0, dp(8));
+        dlg.addView(pitchLabel, lp(-1, -2));
+        SeekBar pitchBar = new SeekBar(this);
+        pitchBar.setMax(200); pitchBar.setProgress((int)(pb.getPitch() * 100));
+        dlg.addView(pitchBar, lp(-1, -2));
+
+        Button resetBtn = new Button(this);
+        resetBtn.setText("Reset to Normal");
+        resetBtn.setTextColor(W); resetBtn.setBackgroundColor(W10);
+        LinearLayout.LayoutParams btnLp = lp(-1, -2); btnLp.topMargin = dp(24);
+        dlg.addView(resetBtn, btnLp);
+
+        AlertDialog ad = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert).setView(dlg).show();
+
+        SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar s, int p, boolean fromUser) {
+                float val = Math.max(0.1f, p / 100f);
+                if (s == tempoBar) tempoLabel.setText(String.format("Tempo: %.2fx", val));
+                else pitchLabel.setText(String.format("Pitch: %.2fx", val));
+                pb.setTempoAndPitch(Math.max(0.1f, tempoBar.getProgress() / 100f), Math.max(0.1f, pitchBar.getProgress() / 100f));
+            }
+            public void onStartTrackingTouch(SeekBar s) {}
+            public void onStopTrackingTouch(SeekBar s) {}
+        };
+        tempoBar.setOnSeekBarChangeListener(listener);
+        pitchBar.setOnSeekBarChangeListener(listener);
+
+        resetBtn.setOnClickListener(v -> {
+            tempoBar.setProgress(100); pitchBar.setProgress(100);
+            pb.setTempoAndPitch(1.0f, 1.0f);
+            ad.dismiss();
+        });
     }
 }

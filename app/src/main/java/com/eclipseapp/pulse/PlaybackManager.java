@@ -46,6 +46,10 @@ final class PlaybackManager {
     private long statsSaveMs = 0;
     private final Runnable sessionSaver = new Runnable() { public void run() { saveSessionAndStats(); if (prepared) mainHandler.postDelayed(this, 10_000); } };
 
+    // Advanced Audio
+    private float currentTempo = 1.0f;
+    private float currentPitch = 1.0f;
+
     private PlaybackManager() {
     }
 
@@ -246,6 +250,24 @@ final class PlaybackManager {
         return Math.max(remaining, 0);
     }
 
+    // ==================== ADVANCED AUDIO ====================
+
+    void setTempoAndPitch(float tempo, float pitch) {
+        this.currentTempo = tempo;
+        this.currentPitch = pitch;
+        if (mediaPlayer != null && prepared) {
+            try {
+                android.media.PlaybackParams params = new android.media.PlaybackParams();
+                params.setSpeed(tempo);
+                params.setPitch(pitch);
+                mediaPlayer.setPlaybackParams(params);
+            } catch (Exception ignored) {}
+        }
+    }
+
+    float getTempo() { return currentTempo; }
+    float getPitch() { return currentPitch; }
+
     void setLocalAudio(Context context, Uri uri) {
         attach(context);
         if (uri == null) {
@@ -412,6 +434,12 @@ final class PlaybackManager {
             }
             mediaPlayer.setOnPreparedListener(player -> {
                 prepared = true;
+                try {
+                    android.media.PlaybackParams params = new android.media.PlaybackParams();
+                    params.setSpeed(currentTempo);
+                    params.setPitch(currentPitch);
+                    player.setPlaybackParams(params);
+                } catch (Exception ignored) {}
                 player.start();
                 // Attach Equalizer
                 try { EqualizerManager.get().attach(appContext, player.getAudioSessionId()); } catch (Exception ignored) {}

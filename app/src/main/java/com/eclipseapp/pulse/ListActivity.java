@@ -28,8 +28,28 @@ public class ListActivity extends Activity {
         getWindow().setStatusBarColor(BG);getWindow().setNavigationBarColor(BG);
         title=getIntent().getStringExtra("title");
         tracks=(List<MainActivity.Track>)getIntent().getSerializableExtra("tracks");
-        if(tracks==null)tracks=new ArrayList<>();
-        setContentView(buildUI());
+        if(tracks!=null){
+            setContentView(buildUI());
+        } else {
+            String query = getIntent().getStringExtra("query");
+            if (query != null) {
+                LinearLayout loadingLayout = vl();
+                loadingLayout.setGravity(Gravity.CENTER);
+                loadingLayout.setBackgroundColor(BG);
+                ProgressBar pb = new ProgressBar(this);
+                pb.setIndeterminateTintList(android.content.res.ColorStateList.valueOf(0xFFADC7FF));
+                loadingLayout.addView(pb);
+                setContentView(loadingLayout);
+                
+                new InnertubeMusicRepository().search(query, (res, status) -> ui.post(() -> {
+                    tracks = res != null ? res : new ArrayList<>();
+                    setContentView(buildUI());
+                }));
+            } else {
+                tracks = new ArrayList<>();
+                setContentView(buildUI());
+            }
+        }
     }
 
     View buildUI(){

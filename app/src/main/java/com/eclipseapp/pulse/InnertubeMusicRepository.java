@@ -18,6 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.CountDownLatch;
 
 final class InnertubeMusicRepository {
     private static final String SONG_FILTER = "EgWKAQIIAWoKEAkQBRAKEAMQBA%3D%3D";
@@ -43,9 +46,36 @@ final class InnertubeMusicRepository {
     private static final String CLIENT_VERSION = "1.20240410.01.00";
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     void loadHome(Callback callback) {
-        search("trending music indonesia", true, callback);
+        executor.execute(() -> {
+            String[] queries = {"trending music indonesia", "new releases 2024", "top hits global"};
+            final List<MainActivity.Track> combined = new ArrayList<>();
+            final Set<String> seenIds = new HashSet<>();
+            CountDownLatch latch = new CountDownLatch(queries.length);
+            
+            for (String q : queries) {
+                executor.execute(() -> {
+                    try {
+                        String json = post(ENDPOINT, requestBody(q, SONG_FILTER));
+                        List<MainActivity.Track> tracks = parseMusicRenderers(json);
+                        synchronized (combined) {
+                            for (MainActivity.Track t : tracks) {
+                                if (t.sourceId != null && seenIds.add(t.sourceId)) {
+                                    combined.add(t);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {} finally {
+                        latch.countDown();
+                    }
+                });
+            }
+            try { latch.await(10, java.util.concurrent.TimeUnit.SECONDS); } catch (Exception e) {}
+            if (combined.isEmpty()) combined.addAll(fallbackTracks());
+            mainHandler.post(() -> callback.onLoaded(combined, "YouTube Music Feed"));
+        });
     }
 
     void search(String query, Callback callback) {
@@ -55,7 +85,7 @@ final class InnertubeMusicRepository {
     void resolvePlayableTrack(MainActivity.Track seedTrack, TrackCallback callback) {
         String query = seedTrack == null ? "" : seedTrack.query();
         String safeQuery = query == null || query.trim().isEmpty() ? "music" : query.trim();
-        new Thread(() -> {
+        executor.execute(() -> {
             try {
                 String json = post(ENDPOINT, requestBody(safeQuery, SONG_FILTER));
                 List<MainActivity.Track> tracks = parseMusicRenderers(json);
@@ -66,7 +96,7 @@ final class InnertubeMusicRepository {
             } catch (Exception exception) {
                 mainHandler.post(() -> callback.onLoaded(null, "Gagal mencari source YouTube"));
             }
-        }, "innertube-track-resolver").start();
+        });
     }
 
     private void search(String query, boolean home, Callback callback) {
@@ -79,7 +109,7 @@ final class InnertubeMusicRepository {
                 return;
             }
         }
-        new Thread(() -> {
+        executor.execute(() -> {
             try {
                 String json = post(ENDPOINT, requestBody(query, SONG_FILTER));
                 List<MainActivity.Track> tracks = parseMusicRenderers(json);
@@ -97,7 +127,7 @@ final class InnertubeMusicRepository {
             } catch (Exception exception) {
                 mainHandler.post(() -> callback.onLoaded(fallbackTracks(), "InnerTube gagal, pakai data lokal"));
             }
-        }, "innertube-music-loader").start();
+        });
     }
 
     /**
@@ -109,7 +139,7 @@ final class InnertubeMusicRepository {
             mainHandler.post(() -> callback.onLoaded(new ArrayList<>(), "No video ID"));
             return;
         }
-        new Thread(() -> {
+        executor.execute(() -> {
             try {
                 String nextEndpoint = "https://music.youtube.com/youtubei/v1/next?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false";
                 JSONObject body = new JSONObject();
@@ -134,7 +164,50 @@ final class InnertubeMusicRepository {
             } catch (Exception e) {
                 mainHandler.post(() -> callback.onLoaded(new ArrayList<>(), "Radio fetch failed"));
             }
-        }, "innertube-radio").start();
+        });
+    }
+
+    // Import Playlist Feature
+    void importPlaylist(android.content.Context context, String playlistUrl, Callback callback) {
+        executor.execute(() -> {
+            try {
+                String plId = "";
+                if (playlistUrl.contains("list=")) {
+                    plId = playlistUrl.split("list=")[1].split("&")[0];
+                } else {
+                    plId = playlistUrl;
+                }
+                
+                String browseEndpoint = "https://music.youtube.com/youtubei/v1/browse?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false";
+                JSONObject root = new JSONObject();
+                JSONObject ctx = new JSONObject();
+                JSONObject client = new JSONObject();
+                client.put("clientName", "WEB_REMIX");
+                client.put("clientVersion", CLIENT_VERSION);
+                client.put("hl", "id");
+                client.put("gl", "ID");
+                ctx.put("client", client);
+                root.put("context", ctx);
+                root.put("browseId", plId.startsWith("VL") ? plId : "VL" + plId);
+                
+                String json = post(browseEndpoint, root.toString());
+                List<MainActivity.Track> tracks = parseMusicRenderers(json);
+                
+                if (tracks.isEmpty()) {
+                    mainHandler.post(() -> callback.onLoaded(tracks, "Gagal import playlist (Kosong / ID Salah)"));
+                    return;
+                }
+                
+                String pid = LocalStorageManager.createPlaylist(context, "Imported: " + plId);
+                for (MainActivity.Track t : tracks) {
+                    LocalStorageManager.addToPlaylist(context, pid, t);
+                }
+                
+                mainHandler.post(() -> callback.onLoaded(tracks, "Berhasil import " + tracks.size() + " lagu!"));
+            } catch (Exception e) {
+                mainHandler.post(() -> callback.onLoaded(new ArrayList<>(), "Error import playlist: " + e.getMessage()));
+            }
+        });
     }
 
     private List<MainActivity.Track> parseNextResults(String json, String currentVideoId) {

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="160dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginEnd="16dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:stateListAnimator="@animator/button_press">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/card_thumb"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:scaleType="centerCrop"
         android:background="@color/surface"
-        android:contentDescription="Cover" />
+        android:contentDescription="Cover"
+        app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
     <TextView
         android:id="@+id/card_title"
