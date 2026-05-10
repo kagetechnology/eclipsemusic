@@ -41,6 +41,8 @@ final class DiscordRPC {
     private int durationMs;
     private long reconnectDelay = 1000;
     private boolean intentionalClose;
+    private boolean isPaused;
+    private long pausedAtMs;
 
     private DiscordRPC() {}
     static DiscordRPC get() { return INSTANCE; }
@@ -157,6 +159,7 @@ final class DiscordRPC {
         currentTitle = title;
         currentArtist = artist;
         currentThumb = thumbUrl;
+        isPaused = false;
         playStartMs = System.currentTimeMillis();
         new Thread(() -> {
             if (fallbackDurationMs > 1000) {
@@ -177,6 +180,18 @@ final class DiscordRPC {
 
     void clearPresence() {
         currentTitle = null;
+        if (identified) sendPresence();
+    }
+
+    void setPaused(boolean paused) {
+        if (this.isPaused == paused) return;
+        this.isPaused = paused;
+        if (paused) {
+            pausedAtMs = System.currentTimeMillis();
+        } else {
+            long pauseDuration = System.currentTimeMillis() - pausedAtMs;
+            playStartMs += pauseDuration;
+        }
         if (identified) sendPresence();
     }
 
@@ -281,16 +296,20 @@ final class DiscordRPC {
                 activity.put("type", 2); // LISTENING
                 activity.put("application_id", APP_ID);
                 activity.put("details", currentTitle);
-                activity.put("state", currentArtist != null ? currentArtist : "Unknown");
-
-                // Timestamps
-                JSONObject timestamps = new JSONObject();
-                long startEpoch = playStartMs / 1000;
-                timestamps.put("start", startEpoch);
-                if (durationMs > 1000) {
-                    timestamps.put("end", startEpoch + (durationMs / 1000));
+                String artistDisplay = currentArtist != null ? currentArtist : "Unknown";
+                if (isPaused) {
+                    activity.put("state", artistDisplay + " (Paused)");
+                } else {
+                    activity.put("state", artistDisplay);
+                    
+                    // Timestamps (Discord expects milliseconds)
+                    JSONObject timestamps = new JSONObject();
+                    timestamps.put("start", playStartMs);
+                    if (durationMs > 1000) {
+                        timestamps.put("end", playStartMs + durationMs);
+                    }
+                    activity.put("timestamps", timestamps);
                 }
-                activity.put("timestamps", timestamps);
 
                 // Assets — resolve external image for cover art
                 JSONObject assets = new JSONObject();

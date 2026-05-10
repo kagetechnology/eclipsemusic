@@ -131,7 +131,7 @@ public final class NativePlayerActivity extends Activity {
         kbBg.setColor(0x1AADC7FF);kbBg.setCornerRadius(dp(20));
         keyBadge.setBackground(kbBg);keyBadge.setPadding(dp(10),dp(3),dp(10),dp(3));
         LinearLayout.LayoutParams kbLP=lp(-2,-2);kbLP.topMargin=dp(6);kbLP.gravity=Gravity.CENTER;
-        r.addView(keyBadge,kbLP);
+        // r.addView(keyBadge,kbLP); // User requested to remove this
 
         // Artist row: [spacer 108dp] [artist centered weight=1] [like 48dp] [download 48dp + 12dp gap]
         LinearLayout artistRow=hl(Gravity.CENTER_VERTICAL);

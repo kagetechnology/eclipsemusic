@@ -19,7 +19,8 @@ import java.net.URL;
  */
 final class MusicRecognizer {
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
-    private static final String AUDD_URL = "https://api.audd.io/";
+    private static final String SHAZAM_URL = "https://shazam.p.rapidapi.com/songs/v2/detect?timezone=America%2FChicago&locale=en-US";
+    private static final String RAPIDAPI_KEY = "5308a06fdfmshba162281edc87c2p13117bjsn24c1df88dca4";
     private static final int SAMPLE_RATE = 44100;
     private static final int RECORD_SECONDS = 7;
 
@@ -76,35 +77,31 @@ final class MusicRecognizer {
 
                 mainHandler.post(() -> progress.onProgress("🔍 Recognizing..."));
 
-                // Convert PCM to WAV
-                byte[] wavData = pcmToWav(pcmData, offset, SAMPLE_RATE, 1, 16);
-
-                // Send to audd.io
-                String base64Audio = Base64.encodeToString(wavData, Base64.NO_WRAP);
-                String result = sendToAudd(base64Audio);
+                // Send to Shazam RapidAPI (raw PCM base64 encoded)
+                String base64Audio = Base64.encodeToString(pcmData, 0, offset, Base64.NO_WRAP);
+                String result = sendToShazam(base64Audio);
 
                 // Parse result
                 JSONObject json = new JSONObject(result);
-                String status = json.optString("status", "error");
-                if ("success".equals(status)) {
-                    JSONObject songResult = json.optJSONObject("result");
-                    if (songResult != null) {
-                        String title = songResult.optString("title", "");
-                        String artist = songResult.optString("artist", "");
-                        if (!title.isEmpty()) {
-                            mainHandler.post(() -> callback.onResult(title, artist, "Found!"));
-                            return;
-                        }
-                    }
-                    mainHandler.post(() -> callback.onResult(null, null, "Song not recognized"));
-                } else {
-                    String errMsg = json.optString("error", "Unknown error");
-                    if (errMsg.contains("limit")) {
-                        mainHandler.post(() -> callback.onResult(null, null, "API limit reached, try again later"));
-                    } else {
-                        mainHandler.post(() -> callback.onResult(null, null, "Recognition failed"));
+                JSONObject track = json.optJSONObject("track");
+                if (track != null) {
+                    String title = track.optString("title", "");
+                    String artist = track.optString("subtitle", "");
+                    if (!title.isEmpty()) {
+                        mainHandler.post(() -> callback.onResult(title, artist, "Found!"));
+                        return;
                     }
                 }
+                
+                // If we get here, either no track found or error
+                String message = json.optString("message", "Song not recognized");
+                if (json.has("message") && message.contains("exceeded")) {
+                    message = "API limit reached, try again later";
+                }
+                
+                String finalMsg = message;
+                mainHandler.post(() -> callback.onResult(null, null, finalMsg));
+
             } catch (Exception e) {
                 if (recorder != null) {
                     try { recorder.stop(); } catch (Exception ignored) {}
@@ -115,24 +112,18 @@ final class MusicRecognizer {
         }, "music-recognizer").start();
     }
 
-    private static String sendToAudd(String base64Audio) throws Exception {
-        String boundary = "----EclipseBoundary" + System.currentTimeMillis();
-        HttpURLConnection conn = (HttpURLConnection) new URL(AUDD_URL).openConnection();
+    private static String sendToShazam(String base64Audio) throws Exception {
+        HttpURLConnection conn = (HttpURLConnection) new URL(SHAZAM_URL).openConnection();
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
         conn.setConnectTimeout(15000);
         conn.setReadTimeout(30000);
-        conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+        conn.setRequestProperty("Content-Type", "text/plain");
+        conn.setRequestProperty("x-rapidapi-host", "shazam.p.rapidapi.com");
+        conn.setRequestProperty("x-rapidapi-key", RAPIDAPI_KEY);
 
         try (OutputStream os = conn.getOutputStream()) {
-            // api_token field
-            writeField(os, boundary, "api_token", "test");
-            // return field
-            writeField(os, boundary, "return", "apple_music,spotify");
-            // audio as base64
-            writeField(os, boundary, "audio", base64Audio);
-            // Close boundary
-            os.write(("--" + boundary + "--\r\n").getBytes());
+            os.write(base64Audio.getBytes());
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -144,54 +135,5 @@ final class MusicRecognizer {
         } finally {
             conn.disconnect();
         }
-    }
-
-    private static void writeField(OutputStream os, String boundary, String name, String value) throws IOException {
-        os.write(("--" + boundary + "\r\n").getBytes());
-        os.write(("Content-Disposition: form-data; name=\"" + name + "\"\r\n\r\n").getBytes());
-        os.write((value + "\r\n").getBytes());
-    }
-
-    private static byte[] pcmToWav(byte[] pcm, int pcmLen, int sampleRate, int channels, int bitsPerSample) {
-        int byteRate = sampleRate * channels * bitsPerSample / 8;
-        int blockAlign = channels * bitsPerSample / 8;
-        int dataLen = pcmLen;
-        int totalLen = 36 + dataLen;
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            // RIFF header
-            out.write("RIFF".getBytes());
-            writeInt(out, totalLen);
-            out.write("WAVE".getBytes());
-            // fmt chunk
-            out.write("fmt ".getBytes());
-            writeInt(out, 16);
-            writeShort(out, 1); // PCM
-            writeShort(out, channels);
-            writeInt(out, sampleRate);
-            writeInt(out, byteRate);
-            writeShort(out, blockAlign);
-            writeShort(out, bitsPerSample);
-            // data chunk
-            out.write("data".getBytes());
-            writeInt(out, dataLen);
-            out.write(pcm, 0, pcmLen);
-        } catch (IOException e) {
-            // won't happen with ByteArrayOutputStream
-        }
-        return out.toByteArray();
-    }
-
-    private static void writeInt(OutputStream os, int v) throws IOException {
-        os.write(v & 0xFF);
-        os.write((v >> 8) & 0xFF);
-        os.write((v >> 16) & 0xFF);
-        os.write((v >> 24) & 0xFF);
-    }
-
-    private static void writeShort(OutputStream os, int v) throws IOException {
-        os.write(v & 0xFF);
-        os.write((v >> 8) & 0xFF);
     }
 }

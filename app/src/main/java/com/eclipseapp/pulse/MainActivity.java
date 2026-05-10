@@ -625,327 +625,206 @@ public class MainActivity extends Activity {
     /* ======================================================================
      *  SETTINGS TAB
      * ====================================================================== */
-    // ── Settings design helpers ───────────────────────────────────────────
-    private static final int ST_BG=0xFF0A0A0C,ST_CARD=0xFF16161A,ST_W=0xFFFFFFFF;
-    private static final int ST_PRIMARY=0xFFADC7FF,ST_G1=0xFFB3B3B3,ST_G2=0xFF6B7280;
-    private static final int ST_DIV=0x0DFFFFFF,ST_BORDER=0x0DFFFFFF,ST_RIPPLE=0x14FFFFFF;
+
     private int sdp(int dp){return Math.round(dp*getResources().getDisplayMetrics().density);}
 
-    private android.widget.LinearLayout stCard(){
-        android.widget.LinearLayout c=new android.widget.LinearLayout(this);
-        c.setOrientation(android.widget.LinearLayout.VERTICAL);
-        android.graphics.drawable.GradientDrawable bg=new android.graphics.drawable.GradientDrawable();
-        bg.setColor(ST_CARD);bg.setCornerRadius(sdp(16));bg.setStroke(1,ST_BORDER);
-        c.setBackground(bg);c.setClipToOutline(true);
-        c.setOutlineProvider(new android.view.ViewOutlineProvider(){
-            public void getOutline(android.view.View v,android.graphics.Outline o){o.setRoundRect(0,0,v.getWidth(),v.getHeight(),sdp(16));}});
-        return c;
-    }
-    private android.widget.TextView stLabel(String text){
-        android.widget.TextView t=new android.widget.TextView(this);
-        t.setText(text);t.setTextColor(ST_PRIMARY);t.setTextSize(10);
-        t.setLetterSpacing(0.15f);t.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
-        android.widget.LinearLayout.LayoutParams lp=new android.widget.LinearLayout.LayoutParams(-1,-2);
-        lp.bottomMargin=sdp(8);t.setLayoutParams(lp);return t;
-    }
-    private android.widget.LinearLayout stRow(String icon,String title,String sub,boolean nav,Runnable onClick){
-        android.widget.LinearLayout row=new android.widget.LinearLayout(this);
-        row.setOrientation(android.widget.LinearLayout.HORIZONTAL);
-        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
-        row.setPadding(sdp(16),sdp(14),sdp(16),sdp(14));
-        if(onClick!=null){
-            row.setClickable(true);row.setFocusable(true);
-            android.content.res.ColorStateList rip=android.content.res.ColorStateList.valueOf(ST_RIPPLE);
-            row.setBackground(new android.graphics.drawable.RippleDrawable(rip,null,null));
-            row.setOnClickListener(v->onClick.run());
-        }
-        android.widget.LinearLayout iconBox=new android.widget.LinearLayout(this);
-        android.graphics.drawable.GradientDrawable ibg=new android.graphics.drawable.GradientDrawable();
-        ibg.setColor(0x1AADC7FF);ibg.setCornerRadius(sdp(8));iconBox.setBackground(ibg);
-        iconBox.setGravity(android.view.Gravity.CENTER);
-        android.widget.LinearLayout.LayoutParams ilp=new android.widget.LinearLayout.LayoutParams(sdp(36),sdp(36));
-        ilp.rightMargin=sdp(14);iconBox.setLayoutParams(ilp);
-        android.widget.TextView ico=new android.widget.TextView(this);
-        ico.setText(icon);ico.setTextSize(16);ico.setTextColor(ST_PRIMARY);
-        ico.setGravity(android.view.Gravity.CENTER);iconBox.addView(ico);row.addView(iconBox);
-        android.widget.LinearLayout txt=new android.widget.LinearLayout(this);
-        txt.setOrientation(android.widget.LinearLayout.VERTICAL);
-        txt.setLayoutParams(new android.widget.LinearLayout.LayoutParams(0,-2,1f));
-        android.widget.TextView tv=new android.widget.TextView(this);
-        tv.setText(title);tv.setTextColor(ST_W);tv.setTextSize(15);txt.addView(tv);
-        if(sub!=null&&!sub.isEmpty()){
-            android.widget.TextView sv2=new android.widget.TextView(this);
-            sv2.setText(sub);sv2.setTextColor(ST_G2);sv2.setTextSize(12);txt.addView(sv2);
-        }
-        row.addView(txt);
-        if(nav){
-            android.widget.TextView ch=new android.widget.TextView(this);
-            ch.setText("›");ch.setTextColor(ST_G2);ch.setTextSize(22);ch.setPadding(sdp(4),0,0,0);
-            row.addView(ch);
-        }
-        return row;
-    }
-    private android.view.View stDivider(){
-        android.view.View d=new android.view.View(this);
-        d.setBackgroundColor(ST_DIV);
-        android.widget.LinearLayout.LayoutParams lp=new android.widget.LinearLayout.LayoutParams(-1,1);
-        lp.leftMargin=sdp(16);lp.rightMargin=sdp(16);d.setLayoutParams(lp);return d;
-    }
-
     private View createSettingsView() {
-        android.widget.ScrollView sv=new android.widget.ScrollView(this);
-        sv.setBackgroundColor(ST_BG);
-        android.widget.LinearLayout root=new android.widget.LinearLayout(this);
-        root.setOrientation(android.widget.LinearLayout.VERTICAL);
-        root.setPadding(sdp(20),sdp(56),sdp(20),sdp(100));
-        sv.addView(root,new android.widget.LinearLayout.LayoutParams(-1,-2));
+        View view = getLayoutInflater().inflate(R.layout.fragment_settings, null);
 
-        // ─── PROFILE HEADER CARD ─────────────────────────────────────────
-        android.widget.LinearLayout profileCard = new android.widget.LinearLayout(this);
-        profileCard.setOrientation(android.widget.LinearLayout.VERTICAL);
-        profileCard.setGravity(android.view.Gravity.CENTER);
-        profileCard.setPadding(sdp(20), sdp(28), sdp(20), sdp(24));
-        android.widget.LinearLayout.LayoutParams profileLP = new android.widget.LinearLayout.LayoutParams(-1, -2);
-        profileLP.bottomMargin = sdp(28);
-        profileCard.setLayoutParams(profileLP);
-        android.graphics.drawable.GradientDrawable profileBg = new android.graphics.drawable.GradientDrawable(
-            android.graphics.drawable.GradientDrawable.Orientation.TL_BR,
-            new int[]{0xFF1F1050, 0xFF0D1B40, 0xFF0A0A14});
-        profileBg.setCornerRadius(sdp(20));
-        profileBg.setStroke(sdp(1), 0x33ADC7FF);
-        profileCard.setBackground(profileBg);
-        profileCard.setClipToOutline(true);
-        // Icon circle
-        android.widget.LinearLayout iconCircle = new android.widget.LinearLayout(this);
-        iconCircle.setGravity(android.view.Gravity.CENTER);
-        android.graphics.drawable.GradientDrawable iconBg = new android.graphics.drawable.GradientDrawable();
-        iconBg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-        iconBg.setColor(0x1AADC7FF);
-        iconBg.setStroke(sdp(1), 0x40ADC7FF);
-        iconCircle.setBackground(iconBg);
-        android.widget.LinearLayout.LayoutParams iconLP = new android.widget.LinearLayout.LayoutParams(sdp(80), sdp(80));
-        iconLP.bottomMargin = sdp(14);
-        iconCircle.setLayoutParams(iconLP);
-        android.widget.TextView iconTv = new android.widget.TextView(this);
-        iconTv.setText("♬"); iconTv.setTextSize(32); iconTv.setTextColor(ST_PRIMARY);
-        iconTv.setGravity(android.view.Gravity.CENTER);
-        iconCircle.addView(iconTv);
-        profileCard.addView(iconCircle);
-        // App name
-        android.widget.TextView appNameTv = new android.widget.TextView(this);
-        appNameTv.setText("Eclipse Music"); appNameTv.setTextColor(ST_W);
-        appNameTv.setTextSize(22); appNameTv.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
-        appNameTv.setGravity(android.view.Gravity.CENTER);
-        profileCard.addView(appNameTv);
-        // Version badge
-        android.widget.TextView verTv = new android.widget.TextView(this);
-        verTv.setText("v1.0  ·  Your music, your way"); verTv.setTextColor(0x80ADC7FF);
-        verTv.setTextSize(12); verTv.setGravity(android.view.Gravity.CENTER);
-        android.widget.LinearLayout.LayoutParams verLP = new android.widget.LinearLayout.LayoutParams(-1,-2);
-        verLP.topMargin = sdp(5); verTv.setLayoutParams(verLP);
-        profileCard.addView(verTv);
-        root.addView(profileCard);
+        // -- Audio Quality --
+        TextView qualityValue = view.findViewById(R.id.settings_quality_value);
+        String[] qualityLabels = {"Low (64 kbps)", "Medium (128 kbps)", "High (256 kbps)"};
+        String[] qualityKeys = {"low", "medium", "high"};
+        String curQ = LocalStorageManager.getAudioQuality(this);
+        int curQIdx = 2;
+        for (int i = 0; i < qualityKeys.length; i++) if (qualityKeys[i].equals(curQ)) curQIdx = i;
+        qualityValue.setText(qualityLabels[curQIdx]);
+        final int[] selQ = {curQIdx};
 
-        // ─── AUDIO section ───────────────────────────────────────────────
-        root.addView(stLabel("AUDIO"));
-        android.widget.LinearLayout audioCard=stCard();
-        android.widget.LinearLayout.LayoutParams cardLP=new android.widget.LinearLayout.LayoutParams(-1,-2);
-        cardLP.bottomMargin=sdp(20);
-
-
-        // Current quality display
-        String[] qualityLabels={"Low (64 kbps)","Medium (128 kbps)","High (256 kbps)"};
-        String[] qualityKeys={"low","medium","high"};
-        String curQ=LocalStorageManager.getAudioQuality(this);
-        int curQIdx=2;for(int i=0;i<qualityKeys.length;i++)if(qualityKeys[i].equals(curQ))curQIdx=i;
-        final int[] selQ={curQIdx};
-        final android.widget.TextView[] qSubRef={null};
-        android.widget.LinearLayout qRow=stRow("♪","Audio Quality",qualityLabels[curQIdx],true,()->{
-            String[] opts={qualityLabels[0],qualityLabels[1],qualityLabels[2]};
-            new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
-                .setTitle("Audio Quality").setSingleChoiceItems(opts,selQ[0],(d,w)->selQ[0]=w)
-                .setPositiveButton("Apply",(d,w)->{
-                    LocalStorageManager.setAudioQuality(this,qualityKeys[selQ[0]]);
-                    if(qSubRef[0]!=null)qSubRef[0].setText(qualityLabels[selQ[0]]);
-                }).setNegativeButton("Cancel",null).show();
+        view.findViewById(R.id.settings_quality_row).setOnClickListener(v -> {
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
+                .setTitle("Audio Quality")
+                .setSingleChoiceItems(qualityLabels, selQ[0], (d, w) -> selQ[0] = w)
+                .setPositiveButton("Apply", (d, w) -> {
+                    LocalStorageManager.setAudioQuality(this, qualityKeys[selQ[0]]);
+                    qualityValue.setText(qualityLabels[selQ[0]]);
+                }).setNegativeButton("Cancel", null).show();
         });
-        // grab subtitle ref
-        if(qRow.getChildCount()>1&&qRow.getChildAt(1) instanceof android.widget.LinearLayout){
-            android.widget.LinearLayout qt=(android.widget.LinearLayout)qRow.getChildAt(1);
-            if(qt.getChildCount()>1)qSubRef[0]=(android.widget.TextView)qt.getChildAt(1);
-        }
-        audioCard.addView(qRow);audioCard.addView(stDivider());
 
-        // Crossfade
-        int curCf=LocalStorageManager.getCrossfadeDuration(this);
-        final int[]selCf={curCf};
-        final android.widget.TextView[]cfSubRef={null};
-        android.widget.LinearLayout cfRow=stRow("⇌","Crossfade",curCf==0?"Off":curCf+"s",true,()->{
-            android.widget.LinearLayout dlg=new android.widget.LinearLayout(this);
-            dlg.setOrientation(android.widget.LinearLayout.VERTICAL);dlg.setPadding(sdp(24),sdp(16),sdp(24),sdp(8));
-            android.widget.TextView cfVal=new android.widget.TextView(this);
-            cfVal.setTextColor(ST_W);cfVal.setTextSize(14);
-            cfVal.setText(selCf[0]==0?"Off":selCf[0]+"s");dlg.addView(cfVal);
-            android.widget.SeekBar sb=new android.widget.SeekBar(this);
-            sb.setMax(10);sb.setProgress(selCf[0]);
-            sb.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener(){
-                public void onProgressChanged(android.widget.SeekBar s,int p,boolean u){selCf[0]=p;cfVal.setText(p==0?"Off":p+"s");}
-                public void onStartTrackingTouch(android.widget.SeekBar s){}public void onStopTrackingTouch(android.widget.SeekBar s){}});
+        // -- Crossfade --
+        TextView cfValue = view.findViewById(R.id.settings_crossfade_value);
+        int curCf = LocalStorageManager.getCrossfadeDuration(this);
+        cfValue.setText(curCf == 0 ? "Off" : curCf + "s");
+        final int[] selCf = {curCf};
+
+        view.findViewById(R.id.settings_crossfade_row).setOnClickListener(v -> {
+            android.widget.LinearLayout dlg = new android.widget.LinearLayout(this);
+            dlg.setOrientation(android.widget.LinearLayout.VERTICAL);
+            dlg.setPadding(sdp(24), sdp(16), sdp(24), sdp(8));
+            TextView cfVal = new TextView(this);
+            cfVal.setTextColor(0xFFFFFFFF);
+            cfVal.setTextSize(14);
+            cfVal.setText(selCf[0] == 0 ? "Off" : selCf[0] + "s");
+            dlg.addView(cfVal);
+            android.widget.SeekBar sb = new android.widget.SeekBar(this);
+            sb.setMax(10);
+            sb.setProgress(selCf[0]);
+            sb.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+                public void onProgressChanged(android.widget.SeekBar s, int p, boolean u) {
+                    selCf[0] = p;
+                    cfVal.setText(p == 0 ? "Off" : p + "s");
+                }
+                public void onStartTrackingTouch(android.widget.SeekBar s) {}
+                public void onStopTrackingTouch(android.widget.SeekBar s) {}
+            });
             dlg.addView(sb);
-            new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle("Crossfade Duration").setView(dlg)
-                .setPositiveButton("Apply",(d,w)->{
-                    LocalStorageManager.setCrossfadeDuration(this,selCf[0]);
-                    if(cfSubRef[0]!=null)cfSubRef[0].setText(selCf[0]==0?"Off":selCf[0]+"s");
-                }).setNegativeButton("Cancel",null).show();
+                .setPositiveButton("Apply", (d, w) -> {
+                    LocalStorageManager.setCrossfadeDuration(this, selCf[0]);
+                    cfValue.setText(selCf[0] == 0 ? "Off" : selCf[0] + "s");
+                }).setNegativeButton("Cancel", null).show();
         });
-        if(cfRow.getChildCount()>1&&cfRow.getChildAt(1) instanceof android.widget.LinearLayout){
-            android.widget.LinearLayout ct=(android.widget.LinearLayout)cfRow.getChildAt(1);
-            if(ct.getChildCount()>1)cfSubRef[0]=(android.widget.TextView)ct.getChildAt(1);
-        }
-        audioCard.addView(cfRow);audioCard.addView(stDivider());
 
-        // Equalizer
-        audioCard.addView(stRow("≋","Equalizer","5-band EQ · Bass · Spatial",true,()->{
-            android.widget.LinearLayout dlg=new android.widget.LinearLayout(this);
-            dlg.setOrientation(android.widget.LinearLayout.VERTICAL);dlg.setPadding(sdp(16),sdp(8),sdp(16),sdp(8));
-            EqualizerManager eq=EqualizerManager.get();
-            String[]bandNames={"60Hz","230Hz","910Hz","3.6kHz","14kHz"};
-            for(int b=0;b<5;b++){
-                final int band=b;
-                android.widget.LinearLayout br=new android.widget.LinearLayout(this);
+        // -- Equalizer --
+        view.findViewById(R.id.settings_equalizer_row).setOnClickListener(v -> {
+            android.widget.LinearLayout dlg = new android.widget.LinearLayout(this);
+            dlg.setOrientation(android.widget.LinearLayout.VERTICAL);
+            dlg.setPadding(sdp(16), sdp(8), sdp(16), sdp(8));
+            EqualizerManager eq = EqualizerManager.get();
+            String[] bandNames = {"60Hz", "230Hz", "910Hz", "3.6kHz", "14kHz"};
+            for (int b = 0; b < 5; b++) {
+                final int band = b;
+                android.widget.LinearLayout br = new android.widget.LinearLayout(this);
                 br.setOrientation(android.widget.LinearLayout.HORIZONTAL);
                 br.setGravity(android.view.Gravity.CENTER_VERTICAL);
-                android.widget.TextView bn=new android.widget.TextView(this);
-                bn.setText(bandNames[b]);bn.setTextColor(ST_G1);bn.setTextSize(12);
-                android.widget.LinearLayout.LayoutParams bnlp=new android.widget.LinearLayout.LayoutParams(sdp(56),-2);
-                bn.setLayoutParams(bnlp);br.addView(bn);
-                android.widget.SeekBar bs=new android.widget.SeekBar(this);bs.setMax(2000);
-                try{bs.setProgress(eq.getBandLevel(this,b)+1000);}catch(Exception e){bs.setProgress(1000);}
-                bs.setLayoutParams(new android.widget.LinearLayout.LayoutParams(0,-2,1f));
-                bs.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener(){
-                    public void onProgressChanged(android.widget.SeekBar s,int p,boolean u){try{eq.setBandLevel(MainActivity.this,band,(short)(p-1000));}catch(Exception ignored){}}
-                    public void onStartTrackingTouch(android.widget.SeekBar s){}
-                    public void onStopTrackingTouch(android.widget.SeekBar s){}});
-                br.addView(bs);dlg.addView(br);
+                TextView bn = new TextView(this);
+                bn.setText(bandNames[b]);
+                bn.setTextColor(0xFFB3B3B3);
+                bn.setTextSize(12);
+                android.widget.LinearLayout.LayoutParams bnlp = new android.widget.LinearLayout.LayoutParams(sdp(56), -2);
+                bn.setLayoutParams(bnlp);
+                br.addView(bn);
+                android.widget.SeekBar bs = new android.widget.SeekBar(this);
+                bs.setMax(2000);
+                try {
+                    bs.setProgress(eq.getBandLevel(this, b) + 1000);
+                } catch (Exception e) {
+                    bs.setProgress(1000);
+                }
+                bs.setLayoutParams(new android.widget.LinearLayout.LayoutParams(0, -2, 1f));
+                bs.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+                    public void onProgressChanged(android.widget.SeekBar s, int p, boolean u) {
+                        try {
+                            eq.setBandLevel(MainActivity.this, band, (short) (p - 1000));
+                        } catch (Exception ignored) {}
+                    }
+                    public void onStartTrackingTouch(android.widget.SeekBar s) {}
+                    public void onStopTrackingTouch(android.widget.SeekBar s) {}
+                });
+                br.addView(bs);
+                dlg.addView(br);
             }
-            new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
-                .setTitle("Equalizer").setView(dlg).setPositiveButton("Done",null).show();
-        }));
-        root.addView(audioCard,cardLP);
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
+                .setTitle("Equalizer").setView(dlg).setPositiveButton("Done", null).show();
+        });
 
-        // ─── CONNECTIONS section ─────────────────────────────────────────
-        root.addView(stLabel("CONNECTIONS"));
-        android.widget.LinearLayout connCard=stCard();
-
-        // Discord
-        boolean dcConn=DiscordRPC.get().isConnected();
-        final android.widget.TextView[]dcSubRef={null};
-        android.widget.LinearLayout dcRow=stRow("🎮","Discord Rich Presence",dcConn?"Connected":"Not connected",true,()->{
-            if(DiscordRPC.get().isConnected()){
-                new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
+        // -- Discord --
+        TextView discordValue = view.findViewById(R.id.settings_discord_value);
+        discordValue.setText(DiscordRPC.get().isConnected() ? "Connected" : "Not connected");
+        view.findViewById(R.id.settings_discord_row).setOnClickListener(v -> {
+            if (DiscordRPC.get().isConnected()) {
+                new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                     .setTitle("Discord")
                     .setMessage("Disconnect Discord Rich Presence?")
-                    .setPositiveButton("Disconnect",(d,w)->{DiscordRPC.get().disconnect();if(dcSubRef[0]!=null)dcSubRef[0].setText("Not connected");})
-                    .setNegativeButton("Cancel",null).show();
+                    .setPositiveButton("Disconnect", (d, w) -> {
+                        DiscordRPC.get().disconnect();
+                        discordValue.setText("Not connected");
+                    }).setNegativeButton("Cancel", null).show();
             } else {
-                Intent i=new Intent(this,DiscordLoginActivity.class);startActivity(i);
+                startActivity(new Intent(this, DiscordLoginActivity.class));
             }
         });
-        if(dcRow.getChildCount()>1&&dcRow.getChildAt(1) instanceof android.widget.LinearLayout){
-            android.widget.LinearLayout dt=(android.widget.LinearLayout)dcRow.getChildAt(1);
-            if(dt.getChildCount()>1)dcSubRef[0]=(android.widget.TextView)dt.getChildAt(1);
-        }
-        connCard.addView(dcRow);connCard.addView(stDivider());
 
-        // Last.fm
-        boolean lfConn=LastFmScrobbler.get().isAuthenticated();
-        String lfUser=LocalStorageManager.getLastFmUsername(this);
-        final android.widget.TextView[]lfSubRef={null};
-        android.widget.LinearLayout lfRow=stRow("🎙","Last.fm Scrobbling",lfConn?"@"+lfUser:"Not connected",true,()->{
-            if(LastFmScrobbler.get().isAuthenticated()){
-                new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
+        // -- Last.fm --
+        TextView lfValue = view.findViewById(R.id.settings_lastfm_value);
+        lfValue.setText(LastFmScrobbler.get().isAuthenticated() ? "@" + LocalStorageManager.getLastFmUsername(this) : "Not connected");
+        view.findViewById(R.id.settings_lastfm_row).setOnClickListener(v -> {
+            if (LastFmScrobbler.get().isAuthenticated()) {
+                new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                     .setTitle("Last.fm").setMessage("Disconnect Last.fm scrobbling?")
-                    .setPositiveButton("Disconnect",(d,w)->{LastFmScrobbler.get().logout(this);if(lfSubRef[0]!=null)lfSubRef[0].setText("Not connected");})
-                    .setNegativeButton("Cancel",null).show();
+                    .setPositiveButton("Disconnect", (d, w) -> {
+                        LastFmScrobbler.get().logout(this);
+                        lfValue.setText("Not connected");
+                    }).setNegativeButton("Cancel", null).show();
             } else {
-                android.widget.LinearLayout dlg=new android.widget.LinearLayout(this);
-                dlg.setOrientation(android.widget.LinearLayout.VERTICAL);dlg.setPadding(sdp(24),sdp(8),sdp(24),sdp(8));
-                android.widget.EditText eu=new android.widget.EditText(this);eu.setHint("Username");eu.setTextColor(ST_W);eu.setHintTextColor(ST_G2);dlg.addView(eu);
-                android.widget.EditText ep=new android.widget.EditText(this);ep.setHint("Password");ep.setTextColor(ST_W);ep.setHintTextColor(ST_G2);
-                ep.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);dlg.addView(ep);
-                android.widget.EditText ek=new android.widget.EditText(this);ek.setHint("API Key");ek.setTextColor(ST_W);ek.setHintTextColor(ST_G2);dlg.addView(ek);
-                android.widget.EditText es=new android.widget.EditText(this);es.setHint("API Secret");es.setTextColor(ST_W);es.setHintTextColor(ST_G2);dlg.addView(es);
-                new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
+                android.widget.LinearLayout dlg = new android.widget.LinearLayout(this);
+                dlg.setOrientation(android.widget.LinearLayout.VERTICAL);
+                dlg.setPadding(sdp(24), sdp(8), sdp(24), sdp(8));
+                android.widget.EditText eu = new android.widget.EditText(this);
+                eu.setHint("Username"); eu.setTextColor(0xFFFFFFFF); eu.setHintTextColor(0xFF6B7280); dlg.addView(eu);
+                android.widget.EditText ep = new android.widget.EditText(this);
+                ep.setHint("Password"); ep.setTextColor(0xFFFFFFFF); ep.setHintTextColor(0xFF6B7280);
+                ep.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                dlg.addView(ep);
+                android.widget.EditText ek = new android.widget.EditText(this);
+                ek.setHint("API Key"); ek.setTextColor(0xFFFFFFFF); ek.setHintTextColor(0xFF6B7280); dlg.addView(ek);
+                android.widget.EditText es = new android.widget.EditText(this);
+                es.setHint("API Secret"); es.setTextColor(0xFFFFFFFF); es.setHintTextColor(0xFF6B7280); dlg.addView(es);
+                new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                     .setTitle("Connect Last.fm").setView(dlg)
-                    .setPositiveButton("Connect",(d,w)->{
-                        String u=eu.getText().toString().trim(),p=ep.getText().toString().trim();
-                        String k=ek.getText().toString().trim(),sec=es.getText().toString().trim();
-                        if(u.isEmpty()||p.isEmpty()||k.isEmpty()||sec.isEmpty()){Toast.makeText(this,"Fill all fields",Toast.LENGTH_SHORT).show();return;}
-                        LocalStorageManager.saveLastFmCredentials(this,u,p,k,sec);
-                        LastFmScrobbler.get().authenticate(this,
-                            ()->{Toast.makeText(this,"✅ Last.fm connected!",Toast.LENGTH_SHORT).show();if(lfSubRef[0]!=null)lfSubRef[0].setText("@"+u);},
-                            ()->{Toast.makeText(this,"❌ Auth failed",Toast.LENGTH_LONG).show();});
-                    }).setNegativeButton("Cancel",null).show();
+                    .setPositiveButton("Connect", (d, w) -> {
+                        String u = eu.getText().toString().trim(), p = ep.getText().toString().trim();
+                        String k = ek.getText().toString().trim(), sec = es.getText().toString().trim();
+                        if (u.isEmpty() || p.isEmpty() || k.isEmpty() || sec.isEmpty()) {
+                            Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        LocalStorageManager.saveLastFmCredentials(this, u, p, k, sec);
+                        LastFmScrobbler.get().authenticate(this, () -> {
+                            Toast.makeText(this, "✅ Last.fm connected!", Toast.LENGTH_SHORT).show();
+                            lfValue.setText("@" + u);
+                        }, () -> Toast.makeText(this, "❌ Auth failed", Toast.LENGTH_LONG).show());
+                    }).setNegativeButton("Cancel", null).show();
             }
         });
-        if(lfRow.getChildCount()>1&&lfRow.getChildAt(1) instanceof android.widget.LinearLayout){
-            android.widget.LinearLayout lt=(android.widget.LinearLayout)lfRow.getChildAt(1);
-            if(lt.getChildCount()>1)lfSubRef[0]=(android.widget.TextView)lt.getChildAt(1);
-        }
-        connCard.addView(lfRow);
-        root.addView(connCard,cardLP);
 
-        // ─── MY STATS section ────────────────────────────────────────────
-        root.addView(stLabel("MY STATS"));
-        android.widget.LinearLayout statsCard=stCard();
-        statsCard.setPadding(sdp(16),sdp(16),sdp(16),sdp(16));
-        long totSec=LocalStorageManager.getTotalListeningSeconds(this);
-        int totH=(int)(totSec/3600),totM=(int)((totSec%3600)/60);
-        android.widget.TextView statTotal=new android.widget.TextView(this);
-        statTotal.setText("⏱  "+(totH>0?totH+"h ":"")+totM+" min total");
-        statTotal.setTextColor(ST_W);statTotal.setTextSize(16);
-        statTotal.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);statsCard.addView(statTotal);
-        List<String> topT=LocalStorageManager.getTopTracks(this,3);
-        List<String> topA=LocalStorageManager.getTopArtists(this,3);
-        if(!topT.isEmpty()){
-            android.widget.TextView tl=new android.widget.TextView(this);
-            tl.setText("Top Tracks");tl.setTextColor(ST_G2);tl.setTextSize(11);
-            tl.setLetterSpacing(0.1f);android.widget.LinearLayout.LayoutParams tlp=new android.widget.LinearLayout.LayoutParams(-1,-2);tlp.topMargin=sdp(12);tl.setLayoutParams(tlp);
-            statsCard.addView(tl);
-            for(String s:topT){android.widget.TextView tv=new android.widget.TextView(this);tv.setText("  "+s);tv.setTextColor(ST_G1);tv.setTextSize(13);statsCard.addView(tv);}
-        }
-        if(!topA.isEmpty()){
-            android.widget.TextView al=new android.widget.TextView(this);
-            al.setText("Top Artists");al.setTextColor(ST_G2);al.setTextSize(11);
-            al.setLetterSpacing(0.1f);android.widget.LinearLayout.LayoutParams alp=new android.widget.LinearLayout.LayoutParams(-1,-2);alp.topMargin=sdp(12);al.setLayoutParams(alp);
-            statsCard.addView(al);
-            for(String s:topA){android.widget.TextView tv=new android.widget.TextView(this);tv.setText("  "+s);tv.setTextColor(ST_G1);tv.setTextSize(13);statsCard.addView(tv);}
-        }
-        if(totSec==0){android.widget.TextView noSt=new android.widget.TextView(this);noSt.setText("No data yet — start listening!");noSt.setTextColor(ST_G2);noSt.setTextSize(13);statsCard.addView(noSt);}
-        root.addView(statsCard,cardLP);
+        // -- Stats --
+        TextView statTotal = view.findViewById(R.id.settings_stat_total);
+        TextView statTracks = view.findViewById(R.id.settings_stat_top_tracks);
+        TextView statArtists = view.findViewById(R.id.settings_stat_top_artists);
+        
+        long totSec = LocalStorageManager.getTotalListeningSeconds(this);
+        int totH = (int) (totSec / 3600), totM = (int) ((totSec % 3600) / 60);
+        statTotal.setText("⏱  " + (totH > 0 ? totH + "h " : "") + totM + " min total");
 
-        // ─── DATA section ─────────────────────────────────────────────────
-        root.addView(stLabel("DATA"));
-        android.widget.LinearLayout dataCard=stCard();
-        dataCard.addView(stRow("⊘","Clear History","Remove all recent plays",true,()->{
-            new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert)
+        List<String> topT = LocalStorageManager.getTopTracks(this, 3);
+        if (!topT.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : topT) sb.append("• ").append(s).append("\n");
+            statTracks.setText(sb.toString().trim());
+        }
+
+        List<String> topA = LocalStorageManager.getTopArtists(this, 3);
+        if (!topA.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : topA) sb.append("• ").append(s).append("\n");
+            statArtists.setText(sb.toString().trim());
+        }
+
+        // -- Data / Danger Zone --
+        view.findViewById(R.id.settings_clear_history_row).setOnClickListener(v -> {
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle("Clear History").setMessage("Remove all play history?")
-                .setPositiveButton("Clear",(d,w)->{LocalStorageManager.clearHistory(this);Toast.makeText(this,"History cleared",Toast.LENGTH_SHORT).show();})
-                .setNegativeButton("Cancel",null).show();
-        }));
-        dataCard.addView(stDivider());
-        dataCard.addView(stRow("🎁","Eclipse Wrapped 2025","Your year in music",true,()->showWrapped()));
-        root.addView(dataCard,cardLP);
+                .setPositiveButton("Clear", (d, w) -> {
+                    LocalStorageManager.clearHistory(this);
+                    Toast.makeText(this, "History cleared", Toast.LENGTH_SHORT).show();
+                }).setNegativeButton("Cancel", null).show();
+        });
 
-        // ─── ABOUT ────────────────────────────────────────────────────────
-        android.widget.TextView about=new android.widget.TextView(this);
-        about.setText("Eclipse Music  ·  v1.0");about.setTextColor(ST_G2);about.setTextSize(12);
-        about.setGravity(android.view.Gravity.CENTER);
-        android.widget.LinearLayout.LayoutParams aLP=new android.widget.LinearLayout.LayoutParams(-1,-2);aLP.topMargin=sdp(8);
-        about.setLayoutParams(aLP);root.addView(about);
+        view.findViewById(R.id.settings_wrapped_row).setOnClickListener(v -> showWrapped());
 
-        return sv;
+        return view;
     }
 
     private void showWrapped() {

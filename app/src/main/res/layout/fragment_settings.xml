@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:paddingBottom="100dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:paddingTop="56dp">
+
+        <!-- ─── PROFILE HEADER CARD ─── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_browse_chip_blue"
+            android:clipToOutline="true">
+            
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_circle_translucent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="♬"
+                    android:textSize="36sp"
+                    android:textColor="#FFFFFF"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eclipse Music"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v1.0  ·  Your music, your way"
+                android:textColor="#B3FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- ─── AUDIO SECTION ─── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AUDIO"
+            android:textColor="#ADC7FF"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_glass"
+            android:layout_marginBottom="24dp">
+            
+            <!-- Quality Row -->
+            <LinearLayout
+                android:id="@+id/settings_quality_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="♪" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Audio Quality" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:id="@+id/settings_quality_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="High (256 kbps)" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1AFFFFFF" android:layout_marginStart="72dp" android:layout_marginEnd="16dp"/>
+
+            <!-- Crossfade Row -->
+            <LinearLayout
+                android:id="@+id/settings_crossfade_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="⇌" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Crossfade" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:id="@+id/settings_crossfade_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Off" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1AFFFFFF" android:layout_marginStart="72dp" android:layout_marginEnd="16dp"/>
+
+            <!-- Equalizer Row -->
+            <LinearLayout
+                android:id="@+id/settings_equalizer_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="≋" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Equalizer" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5-band EQ · Bass · Spatial" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- ─── CONNECTIONS SECTION ─── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONNECTIONS"
+            android:textColor="#ADC7FF"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_glass"
+            android:layout_marginBottom="24dp">
+            
+            <!-- Discord Row -->
+            <LinearLayout
+                android:id="@+id/settings_discord_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="🎮" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Discord Rich Presence" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:id="@+id/settings_discord_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not connected" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1AFFFFFF" android:layout_marginStart="72dp" android:layout_marginEnd="16dp"/>
+
+            <!-- Last.fm Row -->
+            <LinearLayout
+                android:id="@+id/settings_lastfm_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="🎙" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Last.fm Scrobbling" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:id="@+id/settings_lastfm_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not connected" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- ─── MY STATS SECTION ─── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MY STATS"
+            android:textColor="#ADC7FF"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_glass"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp">
+            
+            <TextView
+                android:id="@+id/settings_stat_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⏱  0 min total"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Tracks"
+                android:textColor="#B3FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter"
+                android:layout_marginBottom="4dp"/>
+            <TextView
+                android:id="@+id/settings_stat_top_tracks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No data yet"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Artists"
+                android:textColor="#B3FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter"
+                android:layout_marginBottom="4dp"/>
+            <TextView
+                android:id="@+id/settings_stat_top_artists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No data yet"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter"
+                android:lineSpacingExtra="4dp"/>
+        </LinearLayout>
+
+
+        <!-- ─── DATA ─── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATA"
+            android:textColor="#ADC7FF"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_glass"
+            android:layout_marginBottom="24dp">
+
+            <!-- Clear History Row -->
+            <LinearLayout
+                android:id="@+id/settings_clear_history_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="⊘" android:textColor="#FF5252" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Clear History" android:textColor="#FF5252" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Remove all recent plays" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1AFFFFFF" android:layout_marginStart="72dp" android:layout_marginEnd="16dp"/>
+
+            <!-- Eclipse Wrapped Row -->
+            <LinearLayout
+                android:id="@+id/settings_wrapped_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_press">
+                
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_translucent"
+                    android:layout_marginEnd="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="🎁" android:textColor="#ADC7FF" android:textSize="18sp"/>
+                </FrameLayout>
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Eclipse Wrapped 2025" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="@font/inter"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Your year in music" android:textColor="#B3FFFFFF" android:textSize="13sp" android:fontFamily="@font/inter" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_chevron_right" android:tint="#B3FFFFFF"/>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eclipse Music  ·  v1.0"
+            android:textColor="#6B7280"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:fontFamily="@font/inter"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

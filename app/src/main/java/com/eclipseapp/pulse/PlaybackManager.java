@@ -193,6 +193,7 @@ final class PlaybackManager {
             status = usesLocalAudio()
                     ? "Audio lokal dijeda."
                     : "Audio YouTube dijeda.";
+            try { DiscordRPC.get().setPaused(true); } catch (Exception ignored) {}
             notifyListeners();
         }
     }
@@ -203,6 +204,7 @@ final class PlaybackManager {
             status = usesLocalAudio()
                     ? "Memutar audio lokal di Eclipse."
                     : "Memutar audio YouTube di Eclipse.";
+            try { DiscordRPC.get().setPaused(false); } catch (Exception ignored) {}
             notifyListeners();
         }
     }
@@ -362,8 +364,6 @@ final class PlaybackManager {
         }
 
         resolvingAudio = true;
-        status = "Mengambil audio stream dari YouTube...";
-        notifyListeners();
 
         YouTubeAudioResolver.resolve(sourceId, appContext != null ? LocalStorageManager.getAudioQuality(appContext) : "high", new YouTubeAudioResolver.Callback() {
             @Override
@@ -375,8 +375,6 @@ final class PlaybackManager {
                     resolvingAudio = false;
                     resolvedAudioUrl = audioUrl == null ? "" : audioUrl.trim();
                     resolvedDurationMs = durationMs;
-                    status = "Audio YouTube siap diputar di Eclipse.";
-                    notifyListeners();
                     if (autoPlay && !resolvedAudioUrl.isEmpty()) {
                         prepare();
                     }
@@ -389,11 +387,8 @@ final class PlaybackManager {
                     if (currentTrack == null || !sourceId.equals(currentTrack.sourceId)) {
                         return;
                     }
-                    resolvingAudio = false;
-                    status = message == null || message.trim().isEmpty()
-                            ? "Gagal mengambil audio dari YouTube."
-                            : message;
-                    notifyListeners();
+                    // Loop automatically instead of showing an error
+                    mainHandler.postDelayed(() -> resolveYouTubeAudio(autoPlay), 1500);
                 });
             }
         });
@@ -473,7 +468,9 @@ final class PlaybackManager {
                                 cleanArtist = cleanArtist.split(" - ")[0].trim();
                             }
                         }
-                        DiscordRPC.get().updatePresence(currentTrack.title, cleanArtist, currentTrack.thumbnailUrl, (int) resolvedDurationMs);
+                        int rpcDur = (int) resolvedDurationMs;
+                        if (rpcDur <= 0) rpcDur = duration();
+                        DiscordRPC.get().updatePresence(currentTrack.title, cleanArtist, currentTrack.thumbnailUrl, rpcDur);
                     }
                 } catch (Exception ignored) {}
                 // Start crossfade monitor
